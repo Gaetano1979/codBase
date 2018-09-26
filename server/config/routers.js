@@ -29,4 +29,10 @@ module.exports=(app,db)=>{
             });
         }
     });
+    app.get('/events/new',(req,res)=>{
+        Evento.agregarevento(req.body,(err,respuesta)=>{
+            if(err)throw err;
+            else res.json(respuesta);
+        });
+    });
 }

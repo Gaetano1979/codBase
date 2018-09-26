@@ -9,4 +9,11 @@ module.exports=function(db){
             else callback(null,docs);
         });
     };
+
+    this.agregarevento=(doc,callback)=>{
+        Eventos.insert(doc,(err,doc)=>{
+            if(err)callback(err);
+            else callback(null,{id:doc.insertedIds[0],total:doc.insertedCount});
+        })
+    }
 }

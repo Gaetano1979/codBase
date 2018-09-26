@@ -24,19 +24,21 @@ class EventManager {
     guardarEvento() {
         $('.addButton').on('click', (ev) => {
             ev.preventDefault()
-            let nombre = $('#titulo').val(),
-            start = $('#start_date').val(),
-            title = $('#titulo').val(),
-            end = '',
-            start_hour = '',
-            end_hour = '';
+            
+            let start = $('#start_date').val(),
+                title = $('#titulo').val(),
+                end = '',
+                start_hour = '',
+                end_hour = '';
 
             if (!$('#allDay').is(':checked')) {
-                end = $('#end_date').val()
-                start_hour = $('#start_hour').val()
-                end_hour = $('#end_hour').val()
-                start = start + 'T' + start_hour
-                end = end + 'T' + end_hour
+                end = $('#end_date').val();
+                start_hour = $('#start_hour').val();
+                end_hour = $('#end_hour').val();
+                if (start_hour !== "") 
+                    start = start + 'T' + start_hour;
+                if (end_hour !== "")
+                    end = end + 'T' + end_hour  ;
             }
             let url = this.urlBase + "/new"
             if (title != "" && start != "") {
@@ -44,11 +46,14 @@ class EventManager {
                     title: title,
                     start: start,
                     end: end
-                }
+                };
                 $.post(url, ev, (response) => {
-                    alert(response)
-                })
-                $('.calendario').fullCalendar('renderEvent', ev)
+                    this.inicializarFormulario();
+                    ev._id = response.id;
+                    $('.calendario').fullCalendar('renderEvent', ev);
+                    alert(parseInt(response.total) > 0 ? "Registro grabado correctamente...": "Error al grabar");
+                });
+               
             } else {
                 alert("Complete los campos obligatorios para el evento")
             }
@@ -56,7 +61,7 @@ class EventManager {
     }
 
     inicializarFormulario() {
-        $('#start_date, #titulo, #end_date').val('');
+        $('#start_date, #titulo, #end_date, #start_hour, #end_hour').val('');
         $('#start_date, #end_date').datepicker({
             dateFormat: "yy-mm-dd"
         });
@@ -73,9 +78,9 @@ class EventManager {
         });
         $('#allDay').on('change', function(){
             if (this.checked) {
-                $('.timepicker, #end_date').attr("disabled", "disabled")
+                $('.timepicker, #end_date').attr("disabled", "disabled");
             }else {
-                $('.timepicker, #end_date').removeAttr("disabled")
+                $('.timepicker, #end_date').removeAttr("disabled");
             }
         })
     }
@@ -87,7 +92,7 @@ class EventManager {
                 center: 'title',
                 right: 'month,agendaWeek,basicDay'
             },
-            defaultDate: '2016-11-01',
+            defaultDate: '2018-09-01',
             navLinks: true,
             editable: true,
             eventLimit: true,
@@ -103,6 +108,7 @@ class EventManager {
                 $('.delete').css('background-color', '#a70f19')
             },
             eventDragStop: (event,jsEvent) => {
+                $('.delete').find('img').attr('src', "img/delete.png");
                 var trashEl = $('.delete');
                 var ofs = trashEl.offset();
                 var x1 = ofs.left;
