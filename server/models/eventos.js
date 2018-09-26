@@ -20,9 +20,9 @@ module.exports=function(db){
     };
 
     this.eliminarEvento=(id,callback)=>{
-        Eventos.remove({_id:id},(err,doc)=>{
+        Eventos.remove({_id: id},(err,doc)=>{
             if(err)callback(err);
             else callback(null,doc.result);
-        })
-    }
-}
+        });
+    };
+};

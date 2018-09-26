@@ -41,7 +41,7 @@ module.exports=(app,db)=>{
             else res.json(respuesta);
         });
     });
-    app.post('events/delete:id',(req,res)=>{
+    app.post('/events/delete:id',(req,res)=>{
         Evento.eliminarEvento(ObjectId(req.body.id),(err,respuesta)=>{
             console.log('delete',respuesta);
             
