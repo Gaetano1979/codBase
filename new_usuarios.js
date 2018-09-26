@@ -15,11 +15,13 @@ mongoclient.connect(url,(err,db)=>{
             console.log('Usuario registrado corectamente..');
             
         }else{
+            //Creamos un solo usuario
             /*Usuarios.insertOne({nombre:'admin',clave:'clave'},(err,doc)=>{
                 if(err)throw err;
                 console.log('Usuario registrado corectamente..',JSON.stringify(doc));
                 
             });*/
+            //Creamos dos usuarios
             Usuarios.insertMany([
                 {nombre:'admin',clave:'clave'},
                 {nombre:'gaetano',clave:'gaetano1979'}],
