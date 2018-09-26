@@ -16,6 +16,13 @@ module.exports=function(db){
             else callback(null,{id:doc.insertedIds[0],total:doc.insertedCount});
             console.log(doc);
             
+        });
+    };
+
+    this.eliminarEvento=(id,callback)=>{
+        Eventos.remove({_id:id},(err,doc)=>{
+            if(err)callback(err);
+            else callback(null,doc.result);
         })
     }
 }

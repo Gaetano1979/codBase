@@ -1,3 +1,5 @@
+var ObjectId = require('mongodb').ObjectID;
+
 const usuario=require('../models/usuario');
 const evento=require('../models/eventos');
 
@@ -23,16 +25,26 @@ module.exports=(app,db)=>{
         if(typeof(app.locals.id)==='undefined'){
             res.send('0');
         }else{
-            Evento.recibirEventos(app.locals.id,(err,respuesta)=>{
+            Evento.recibirEventos(ObjectId(app.locals.id),(err,respuesta)=>{
                 if(err)throw err;
                 else res.json(respuesta)
+                
             });
         }
     });
-    app.get('/events/new',(req,res)=>{
+    app.post('/events/new',(req,res)=>{
+        req.body.nombre=ObjectId(app.locals.id);
+        if(req.body.end=="")delete req.body.end;
+
         Evento.agregarevento(req.body,(err,respuesta)=>{
             if(err)throw err;
             else res.json(respuesta);
+        });
+    });
+    app.post('events/delete:id',(req,res)=>{
+        Evento.eliminarEvento(ObjectId(req.body.id),(err,respuesta)=>{
+            console.log('delete',respuesta);
+            
         });
     });
 }
