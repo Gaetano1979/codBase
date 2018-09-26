@@ -21,7 +21,7 @@ mongoclient.connect(url,(err,db)=>{
                 console.log('Usuario registrado corectamente..',JSON.stringify(doc));
                 
             });*/
-            //Creamos dos usuarios
+            //Creamos dos usuarios 
             Usuarios.insertMany([
                 {nombre:'admin',clave:'clave'},
                 {nombre:'gaetano',clave:'gaetano1979'}],
