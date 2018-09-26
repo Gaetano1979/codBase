@@ -10,5 +10,11 @@ const confing={
 mongoclient.connect('mongodb://localhost:27017/calendario',(err,db)=>{
     if(err)throw err;
     console.log('Base de dato conectada corectamente..');
+
+    require('./server/config/express')(app,confing);
+    require('./server/config/routers')(app,db);
+
+    app.listen(PORT,()=>{console.log('Servidor funcionando en el puerto '+PORT);
+    })
     
 })

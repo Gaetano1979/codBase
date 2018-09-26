@@ -1,0 +1,12 @@
+module.exports=function(db){
+    const dbName='calendario',
+          dbs=db.db(dbName),
+          Eventos=dbs.collection('eventos');
+          
+    this.recibirEventos=(id,callback)=>{
+        Eventos.find({nombre:id}).toArray((err,docs)=>{
+            if(err) callback(err);
+            else callback(null,docs);
+        });
+    };
+}
