@@ -14,7 +14,7 @@ module.exports=function(db){
         Eventos.insert(doc,(err,doc)=>{
             if(err)callback(err);
             else callback(null,{id:doc.insertedIds[0],total:doc.insertedCount});
-            console.log("Agregado",doc);
+            console.log("Agregado documento",doc);
             
         });
     };
