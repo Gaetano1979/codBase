@@ -23,6 +23,8 @@ module.exports=function(db){
         Eventos.remove({_id: id},(err,doc)=>{
             if(err)callback(err);
             else callback(null,doc.result);
+            console.log("Eliminato",doc);
+            
         });
     };
 };
