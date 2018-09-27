@@ -20,7 +20,9 @@ class EventManager {
     eliminarEvento(evento) {
         let eventId = evento._id
         $.post('/events/delete/'+eventId, {id: eventId}, (response) => {
-            alert(response)
+            //alert(response)
+            alert(parseInt(response.n) > 0 ? "Evento Borrado..":"Error al borrar evento el Evento");
+            
         })
     }
 
