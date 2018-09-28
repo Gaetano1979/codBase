@@ -41,6 +41,13 @@ module.exports=(app,db)=>{
             else res.json(respuesta);
         });
     });
+    app.post('/events/update/:id', (req, res) => {
+        Evento.actualizarEvento(ObjectId(req.body.id), req.body, (err, respuesta) => {
+            if(err)throw err;
+            else res.json(respuesta);
+            console.log('update', respuesta);
+        });
+    });
     app.post('/events/delete/:id',(req,res)=>{
         Evento.eliminarEvento(ObjectId(req.body.id),(err,respuesta)=>{
             if(err)throw err;

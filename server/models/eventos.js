@@ -18,6 +18,14 @@ module.exports=function(db){
             
         });
     };
+    this.actualizarEvento = (id, reg, callback) => {
+        Eventos.findOneAndUpdate({_id: id}, {$set: {start: reg.ini, end: reg.fin}}, (err, doc) => {
+            if (err)
+                callback(err);
+            else
+                callback(null, {resultado: doc.ok});
+        });
+    };
 
     this.eliminarEvento=(id,callback)=>{
         Eventos.remove({_id: id},(err,doc)=>{

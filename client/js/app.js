@@ -16,6 +16,14 @@ class EventManager {
             this.inicializarCalendario(response);
         })
     }
+    actualizarEvento(evento) {
+        $.post('/events/update/' + evento._id, {ini: evento.start.format(), fin: evento.end.format(), 
+            id: evento._id}, (response) => {
+            console.log(response);
+            console.log(evento.start);
+            
+        });
+    }
 
     eliminarEvento(evento) {
         let eventId = evento._id
@@ -28,13 +36,13 @@ class EventManager {
 
     guardarEvento() {
         $('.addButton').on('click', (ev) => {
-            ev.preventDefault()
+            ev.preventDefault();
             
-            let start = $('#start_date').val(),
+            let start = $('#start_date').val()+'T08:00:00',
                 title = $('#titulo').val(),
-                end = '',
+                end = $('#start_date').val()+'T18:00:00',
                 start_hour = '',
-                end_hour = '';
+                end_hour = ''
 
             if (!$('#allDay').is(':checked')) {
                 end = $('#end_date').val();
@@ -84,8 +92,10 @@ class EventManager {
         $('#allDay').on('change', function(){
             if (this.checked) {
                 $('.timepicker, #end_date').attr("disabled", "disabled");
+                
             }else {
                 $('.timepicker, #end_date').removeAttr("disabled");
+                
             }
         })
     }
